@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Screen
+comment0.text=\r\n\ The\ Screen\ class\ asks\ for\ the\ number\ of\ pixels\ in\ the\ Y\ and\ X\ axis.\r\n\r\n\ @author\ William\ Fuentes\r\n\ @version\ 9/15/2019\r\n
+comment1.params=xRes\ yRes
+comment1.target=Screen(int,\ int)
+comment1.text=\r\n\ Constructor\ to\ set\ the\ variables.\r\n
+comment2.params=
+comment2.target=int\ numberOfPixels()
+comment2.text=\r\n\ This\ method\ calculates\ the\ number\ of\ pixels\ on\ the\ screen.\r\n
+comment3.params=invert
+comment3.target=void\ clear(boolean)
+comment3.text=\r\n\ This\ method\ clears\ the\ number\ of\ pixels\ if\ the\ value\ of\ numberOfPixles\ is\ greater\ than\ 2\ million.\r\n
+numComments=4

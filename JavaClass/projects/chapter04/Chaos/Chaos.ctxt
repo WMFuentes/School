@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Chaos
+comment0.text=\r\n\ Chaos\ equation\ program\ taken\ from\ Python\ and\ implemented\ in\ Java.\r\n\r\n\ @author\ Bill\ Fuentes\r\n\ @version\ 9/18/19\r\n
+comment1.params=
+comment1.target=Chaos()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Chaos\r\n
+comment2.params=variable
+comment2.target=void\ chaos(float)
+comment2.text=\r\n\ This\ method\ takes\ a\ variable\r\n
+numComments=3
