@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=RandomTester
+comment0.text=\r\n\ This\ class\ generates\ a\ random\ number\ using\ the\ methods\ within.\r\n\r\n\ @author\ William\ Fuentes\r\n\ @version\ 9/25/2019\r\n
+comment1.params=
+comment1.target=RandomTester()
+comment1.text=\r\n\ Constructor\ for\ object\ of\ class\ RandomTester\r\n
+comment2.params=
+comment2.target=void\ printOneRandom()
+comment2.text=\r\n\ The\ printOneRandom\ method\ prints\ one\ random\ number.\r\n
+comment3.params=howMany
+comment3.target=void\ printMultiRandom(int)
+comment3.text=\r\n\ The\ printMultiRandom\ method\ prints\ multiple\ random\ numbers,\ as\ many\r\n\ as\ the\ parameter\ is\ supplied\r\n\r\n\ @param\ \ howMany\ defines\ the\ number\ of\ times\ a\ loop\ will\ run\r\n
+numComments=4
