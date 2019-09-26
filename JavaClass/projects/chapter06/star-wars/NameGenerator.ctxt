@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=NameGenerator
+comment0.text=\r\n\ This\ program\ generates\ a\ name\ based\ on\ user\ input.\r\n\r\n\ @author\ William\ Fuentes\r\n\ @version\ 9/25/19\r\n
+comment1.params=
+comment1.target=NameGenerator()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ NameGenerator\r\n
+comment2.params=
+comment2.target=void\ generateStarWarsName()
+comment2.text=\r\n\ This\ method\ prints\ prompts\ and\ gathers\ input\ to\ create\ a\r\n\ Star\ Wars\ name.\r\n
+numComments=3
