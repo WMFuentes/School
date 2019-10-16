@@ -36,6 +36,23 @@ public class LogAnalyzer
     }
 
     /**
+     * Return the number of accesses recorded in the log file.
+     */
+    public int numberOfAccesses()
+    {
+        // Initialize the accumulator
+        int total = 0;
+        
+        // This for loop initializes "hour", watches for it to be lesser
+        // than the length of the array, and adds 1 to it after each loop.
+        for(int hour = 0; hour < hourCounts.length; hour++) {
+            // The accumulator holds and adds to the counts per hour.
+            total += hourCounts[hour];
+        }
+        return total;
+    }
+    
+    /**
      * Print the hourly counts.
      * These should have been set with a prior
      * call to analyzeHourlyData.
