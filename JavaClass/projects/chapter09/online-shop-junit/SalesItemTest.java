@@ -76,7 +76,35 @@ public class SalesItemTest
         SalesItem salesIte1 = new SalesItem("Brain Surgery for Dummies.", 9899);
         assertEquals(true, salesIte1.addComment("Fred", "Great - I perform brain surgery every week now!", 4));
     }
+
+    @Test
+    public void testTwoComments()
+    {
+        SalesItem salesIte2 = new SalesItem("Item1", 100);
+        assertEquals(true, salesIte2.addComment("Billy", "Wonderful", 5));
+        assertEquals(true, salesIte2.addComment("Kaleigh", "Terrible", 1));
+        assertEquals(2, salesIte2.getNumberOfComments());
+    }
+
+    @Test
+    public void testDupeAuthor()
+    {
+        SalesItem salesIte1 = new SalesItem("item1", 1000);
+        assertEquals(true, salesIte1.addComment("Bill", "Wonderful", 5));
+        assertEquals(false, salesIte1.addComment("Bill", "On second thought, terrible", 1));
+    }
+
+    @Test
+    public void testRatingBoundaries()
+    {
+        SalesItem salesIte1 = new SalesItem("item1", 1000);
+        assertEquals(false, salesIte1.addComment("Bill", "Bad", 0));
+        assertEquals(false, salesIte1.addComment("Judy", "Terrific", 6));
+    }
 }
+
+
+
 
 
 

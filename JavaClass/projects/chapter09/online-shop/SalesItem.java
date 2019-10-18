@@ -130,10 +130,15 @@ public class SalesItem
      */
     public Comment findMostHelpfulComment()
     {
+        Comment best = null;
         Iterator<Comment> it = comments.iterator();
-        Comment best = it.next();
+        boolean findFirstVotedComment = false;
         while(it.hasNext()) {
             Comment current = it.next();
+            if(current.getVoteCount() > 0);{
+                best = current;
+                findFirstVotedComment = true;
+            }
             if(current.getVoteCount() > best.getVoteCount()) {
                 best = current;
             }
@@ -147,7 +152,7 @@ public class SalesItem
      */
     private boolean ratingInvalid(int rating)
     {
-        return rating < 0 || rating > 5;
+        return rating < 1 || rating > 5;
     }
     
     /**
