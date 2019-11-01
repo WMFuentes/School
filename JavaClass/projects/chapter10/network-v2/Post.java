@@ -7,6 +7,9 @@ import java.util.ArrayList;
  * 
  * @author Michael Kölling and David J. Barnes
  * @version 0.2
+ * 
+ * Exercise 10.6 completed. You can find the getUserName method at the bottom.
+ * by William Fuentes 10/27/19
  */
 public class Post 
 {
@@ -113,5 +116,14 @@ public class Post
         else {
             return seconds + " seconds ago";
         }
+    }
+    
+    /**
+     * Exercise 10.6. This method returns the username, to be used in subclasses.
+     */
+    
+    public String getUserName()
+    {
+        return username;
     }
 }

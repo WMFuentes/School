@@ -1,0 +1,69 @@
+# prob8_9and10 fuel mpg.py
+# This program computes the fuel effiency of a multileg journey either from user inputs (prob9) or a file input(prob 10).
+# It takes odometer readings and gallons of gas used for each leg as inputs, and then
+# uses these inputs to compute the mpg for each leg and total mpg for the entiretrip.
+# It runs to program in both interactive mode as well as reading data from a file.
+
+# Define the function
+def main():
+
+# Describe whatand how this program does as header information
+    
+
+# prompt user if data is going to be entered interactively or read from a file
+
+
+# If data is to be entered interactively
+        
+        # Initialize variables starting odometer reading, initialize leg#, tripgal and tripMileage 
+
+        # Get starting odometer reading and previous odometer reading (will be the starting odometer reading if this is the starting point)
+        
+        # Set up an infinite loop (using while true) which will continue until we hit "enter" as a blank line.
+
+            # Prompt user for input data for current leg) Ask user for input and save it
+
+            # Blank line ends loop - hence break out.
+
+
+            # Process input - split input variable legInput by space, and save both inputs 
+
+            # perform leg calculations and make sure the odometer reading now becomes the previous odometer reading
+
+            # We can print leg information 
+
+            # Increment leg counter
+
+            # Cumulate overall trip calculations for total gallons, total miles, and trip MPG.
+
+
+        # Print total trip information after loop has ended with a blank line input            
+        
+
+
+ # If data is to be entered by reading from file
+       
+        # Get name of input file
+
+        # Open in reading mode the input file
+
+        # Initialize Variables as previously
+
+        # Read first line from file to get the starting odometer reading and save it as the previous odometer reading
+
+        # Read next line from file before entering loop for reamining lines
+        
+        # Loop through all lines of file (remember each line has 2 pieces of data and end-of-file is a blank line - we can check for either to exit the loop)
+        # So as long as tehre are two items in the line
+            
+            # Split input data as before and perform the leg calculations, print these, and increment leg counter by 1
+
+            # Also, perform the trip calculations as before
+
+            # Read next line from file - data for next leg
+   
+
+        # Print total trip information after loop has ended            
+
+
+# Make sure we invoke the main() program to execute the code.

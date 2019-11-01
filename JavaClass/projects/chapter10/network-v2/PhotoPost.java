@@ -7,6 +7,10 @@ import java.util.ArrayList;
  * 
  * @author Michael Kölling and David J. Barnes
  * @version 0.2
+ * 
+ * Exercise 10.6 completed. You can find the printShortSummary method at the bottom, modified
+ * for the photo post.
+ * by William Fuentes 10/27/19
  */
 public class PhotoPost extends Post
 {
@@ -45,5 +49,14 @@ public class PhotoPost extends Post
     public String getCaption()
     {
         return caption;
+    }
+    
+     /**
+     * Exercise 10.6. This method prints a simple summary using a method in the superclass Post.
+     */
+    public void printShortSummary()
+    {
+        String name = getUserName();
+        System.out.println("Photo post from " + name + ".");
     }
 }

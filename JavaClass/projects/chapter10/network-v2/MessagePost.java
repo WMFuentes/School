@@ -7,6 +7,9 @@ import java.util.ArrayList;
  * 
  * @author Michael Kölling and David J. Barnes
  * @version 0.2
+ * 
+ * Exercise 10.6 completed. You can find the printShortSummary method at the bottom.
+ * by William Fuentes 10/27/19
  */
 public class MessagePost extends Post
 {
@@ -32,5 +35,14 @@ public class MessagePost extends Post
     public String getText()
     {
         return message;
+    }
+    
+    /**
+     * Exercise 10.6. This method prints a simple summary using a method in the superclass Post.
+     */
+    public void printShortSummary()
+    {
+        String name = getUserName();
+        System.out.println("Message post from " + name + ".");
     }
 }
