@@ -8,21 +8,24 @@
 #pseudocode:
 #**DONE** create the play window with 3 upside down cups and a ball (circle).
     #**DONE**two buttons at the bottom, quit and reset game.
-    #reset game randomizes the ball.
-#place a ball randomly in position 1, 2 or 3.
-#upon click, selected cup raises, revealing ball or no ball.
-    #if ball is in the position, inciment a win.
-    #else inciment a loss.
+    #**DONE**reset game randomizes the ball.
+#**DONE**place a ball randomly in position 1, 2 or 3.
+#**DONE**upon click, cups disappear, revealing ball or no ball.
+    #**DONE**if ball is in the position, inciment a win.
+    #**DONE**else inciment a loss.
 
 from graphics import *
 from random import randrange
 
+#Cup class, describing the shape and bounderies. Methods allow for drawing,
+#registering a click, and undrawing.
 class Cup:
     def __init__(self, pos):
         self.center = position(pos)
         x,y = self.center.getX(), self.center.getY()
-        self.xmax, self.xmin = x+3, x-3
-        self.ymax, self.ymin = y+3, y-3
+        self.xmax, self.xmin = x+6, x-6
+        self.ymax, self.ymin = y+6, y-6
+        self.activate()
 
     def draw(self,win):
         x = self.center.getX()
@@ -34,19 +37,28 @@ class Cup:
         self.bottom.draw(win)
 
     def clicked(self, p):
-        return (self.xmin <= p.getX() <= self.xmax and
+        return (self.active and self.xmin <= p.getX() <= self.xmax and
                 self.ymin <= p.getY() <= self.ymax)
 
     def undraw(self, win):
         self.body.undraw()
         self.bottom.undraw()
 
+    def activate(self):
+        self.active = True
+
+    def deactivate(self):
+        self.active = False
+
+#Ball class, randomly assigns a position under a cup. Methods defined for drawing,
+#undrawing, and registering a click.        
 class Ball:
     def __init__(self):
         self.center = position(randrange(1,4))
         x,y = self.center.getX(), self.center.getY()
         self.xmax, self.xmin = x+6, x-6
         self.ymax, self.ymin = y+6, y-6
+        self.activate()
 
     def draw(self,win):
         self.ball = Circle(self.center, 5)
@@ -54,12 +66,19 @@ class Ball:
         self.ball.draw(win)
 
     def clicked(self, p):
-        return (self.xmin <= p.getX() <= self.xmax and
+        return (self.active and self.xmin <= p.getX() <= self.xmax and
                 self.ymin <= p.getY() <= self.ymax)
 
     def undraw(self, win):
         self.ball.undraw()
 
+    def activate(self):
+        self.active = True
+
+    def deactivate(self):
+        self.active = False
+
+#Basic button class to draw and register a click.
 class Button:
     def __init__(self, win, center, width, height, label):
         w,h = width/2.0, height/2.0
@@ -78,6 +97,7 @@ class Button:
         return (self.xmin <= p.getX() <= self.xmax and
                 self.ymin <= p.getY() <= self.ymax)
 
+#This method defines the 3 positions used for cups and the ball.
 def position(pos):
     if pos == 1:
         center = Point(20,50)
@@ -87,13 +107,14 @@ def position(pos):
         center = Point(80,50)
     return center
 
+
 def main():
     #create app window
     win = GraphWin("Ball and Cup Game",500,500)
     win.setCoords(0,0,100,100)
     win.setBackground("Light Goldenrod")
 
-    #draw the text
+    #draw the text on the gameboard
     title1 = Text(Point(50,95), "Click A Cup And")
     title2 = Text(Point(50,90), "Find The Ball!")
     title1.setSize(18)
@@ -138,7 +159,8 @@ def main():
     quitButton = Button(win, Point(70,20), 20, 10, "Quit")
     resetButton = Button(win, Point(30,20), 20, 10, "Reset")
 
-    #event loop
+    #main event loop. Getting the mouse point, determine what button, cup, or
+    #ball it lands in, then registering a win, loss, reset, or quit event.
     while True:
         pt = win.getMouse()
 
@@ -147,17 +169,21 @@ def main():
             cup2.undraw(win)
             cup3.undraw(win)
             wins = wins + 1
-            wCounter.undraw()
-            wCounter.draw(win)
-            print("wins:",wins)
+            wCounter.setText(wins)
+            ball.deactivate()
+            cup1.deactivate()
+            cup2.deactivate()
+            cup3.deactivate()
         elif (cup1.clicked(pt) or cup2.clicked(pt) or cup3.clicked(pt)) and not ball.clicked(pt):
             cup1.undraw(win)
             cup2.undraw(win)
             cup3.undraw(win)
             loss = loss + 1
-            lCounter.undraw()
-            lCounter.draw(win)
-            print("losses:",loss)
+            lCounter.setText(loss)
+            ball.deactivate()
+            cup1.deactivate()
+            cup2.deactivate()
+            cup3.deactivate()
         elif resetButton.clicked(pt):
             ball.undraw(win)
             del ball
@@ -166,16 +192,12 @@ def main():
             cup1.draw(win)
             cup2.draw(win)
             cup3.draw(win)
+            cup1.activate()
+            cup2.activate()
+            cup3.activate()
         elif quitButton.clicked(pt):
             break
     win.close()
-    #If cup clicked, undraw cup
-    #if ball clicked, incriment win
-    #else, inciment loss
-
-    #if resetButton clicked, undraw then draw cups and random ball
-
-    #if quitButton clicked, win.close()
 
 if __name__ == '__main__':
     main()
