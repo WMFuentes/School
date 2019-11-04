@@ -45,8 +45,8 @@ class Ball:
     def __init__(self):
         self.center = position(randrange(1,4))
         x,y = self.center.getX(), self.center.getY()
-        self.xmax, self.xmin = x+3, x-3
-        self.ymax, self.ymin = y+3, y-3
+        self.xmax, self.xmin = x+6, x-6
+        self.ymax, self.ymin = y+6, y-6
 
     def draw(self,win):
         self.ball = Circle(self.center, 5)
@@ -56,6 +56,9 @@ class Ball:
     def clicked(self, p):
         return (self.xmin <= p.getX() <= self.xmax and
                 self.ymin <= p.getY() <= self.ymax)
+
+    def undraw(self, win):
+        self.ball.undraw()
 
 class Button:
     def __init__(self, win, center, width, height, label):
@@ -136,24 +139,36 @@ def main():
     resetButton = Button(win, Point(30,20), 20, 10, "Reset")
 
     #event loop
-    pt = win.getMouse()
-    while not quitButton.clicked(pt):
-        if cup1.clicked(pt) or cup2.clicked(pt) or cup3.clicked(pt):
+    while True:
+        pt = win.getMouse()
+
+        if (cup1.clicked(pt) or cup2.clicked(pt) or cup3.clicked(pt)) and ball.clicked(pt):
             cup1.undraw(win)
             cup2.undraw(win)
             cup3.undraw(win)
+            wins = wins + 1
+            wCounter.undraw()
+            wCounter.draw(win)
+            print("wins:",wins)
+        elif (cup1.clicked(pt) or cup2.clicked(pt) or cup3.clicked(pt)) and not ball.clicked(pt):
+            cup1.undraw(win)
+            cup2.undraw(win)
+            cup3.undraw(win)
+            loss = loss + 1
+            lCounter.undraw()
+            lCounter.draw(win)
+            print("losses:",loss)
         elif resetButton.clicked(pt):
+            ball.undraw(win)
+            del ball
+            ball = Ball()
+            ball.draw(win)
             cup1.draw(win)
             cup2.draw(win)
             cup3.draw(win)
-        pt = win.getMouse()
+        elif quitButton.clicked(pt):
+            break
     win.close()
-
-    if ball.clicked(pt):
-        wins = wins + 1
-    else:
-        loss = loss + 1
-            
     #If cup clicked, undraw cup
     #if ball clicked, incriment win
     #else, inciment loss
