@@ -45,4 +45,12 @@ public class MessagePost extends Post
         String name = getUserName();
         System.out.println("Message post from " + name + ".");
     }
+    
+    /**
+     * Exercise 11.2
+     */
+    public void display()
+    {
+        System.out.println(message);
+    }
 }

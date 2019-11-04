@@ -51,12 +51,20 @@ public class PhotoPost extends Post
         return caption;
     }
     
-     /**
+    /**
      * Exercise 10.6. This method prints a simple summary using a method in the superclass Post.
      */
     public void printShortSummary()
     {
         String name = getUserName();
         System.out.println("Photo post from " + name + ".");
+    }
+    
+    /**
+     * Exercise 11.2
+     */
+    public void display()
+    {
+        System.out.println(caption);
     }
 }

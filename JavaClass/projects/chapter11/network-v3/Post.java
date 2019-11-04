@@ -7,10 +7,15 @@ import java.util.ArrayList;
  * 
  * @author Michael Kölling and David J. Barnes
  * @version 0.3
+ * 
+ * Exercise 11.7 completed by changin the username to protected and accessing
+ * it from the MessagePost class.
+ * 
+ * by William Fuentes
  */
 public class Post 
 {
-    private String username;  // username of the post's author
+    protected String username;  // username of the post's author
     private long timestamp;
     private int likes;
     private ArrayList<String> comments;
@@ -61,7 +66,7 @@ public class Post
      * 
      * @return The post's creation time, as a system time value.
      */
-    public long getTimeStamp()
+    protected long getTimeStamp()
     {
         return timestamp;
     }
@@ -71,25 +76,35 @@ public class Post
      * 
      * (Currently: Print to the text terminal. This is simulating display 
      * in a web browser for now.)
+     * 
+     * Exercise 11.7 accomplished by changing this printout to being just the
+     * timestamp and comments. I made the username field protected so I can
+     * access it from the MessagePost class.
      */
-    public void display()
+    public String toString()
     {
-        System.out.println(username);
-        System.out.print(timeString(timestamp));
-        
+        //System.out.println(username);
+        //System.out.print(timeString(timestamp));
+        String text = timeString(timestamp);
         if(likes > 0) {
-            System.out.println("  -  " + likes + " people like this.");
+            text += "  -  " + likes + " people like this.\n";
         }
         else {
-            System.out.println();
+            text += "\n";
         }
         
         if(comments.isEmpty()) {
-            System.out.println("   No comments.");
+            return text + "   No comments.\n";
         }
         else {
-            System.out.println("   " + comments.size() + " comment(s). Click here to view.");
+            return text + "   " + comments.size() + 
+            " comment(s). Click here to view.\n";
         }
+    }
+    
+    public void display()
+    {
+        System.out.println(toString());
     }
     
     /**

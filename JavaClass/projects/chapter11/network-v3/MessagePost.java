@@ -7,6 +7,10 @@ import java.util.ArrayList;
  * 
  * @author Michael Kölling and David J. Barnes
  * @version 0.3
+ * Exercise 11.7 completed by changin the username to protected and accessing
+ * it from the MessagePost class.
+ * 
+ * by William Fuentes
  */
 public class MessagePost extends Post
 {
@@ -35,6 +39,17 @@ public class MessagePost extends Post
     }
 
     /**
+     * Exercise 11.7 reformatting of the returned messagePost. Accomplished
+     * by setting the username field to Protected so we can access it from 
+     * the MessagePost class.
+     */
+    public String toString()
+    {
+        return super.username + "\n" + message + "\n" + 
+        super.toString() + "\n";
+    }
+    
+    /**
      * Display the details of this post.
      * 
      * (Currently: Print to the text terminal. This is simulating display 
@@ -42,6 +57,6 @@ public class MessagePost extends Post
      */
     public void display()
     {
-        System.out.println(message);
+        System.out.println(toString());
     }
 }
