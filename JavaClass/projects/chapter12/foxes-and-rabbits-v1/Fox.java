@@ -151,21 +151,33 @@ public class Fox
      * Look for rabbits adjacent to the current location.
      * Only the first live rabbit is eaten.
      * @return Where food was found, or null if it wasn't.
+     * 
+     * Exercise 12.20. Moved the "return where;" so that if there is not a
+     * rabbit in a block, it will move the fox to the next location. I am not
+     * 100% sure it is what the book is asking.
      */
     private Location findFood()
     {
+        // looks for adjacent locations and iterates through
         List<Location> adjacent = field.adjacentLocations(location);
         Iterator<Location> it = adjacent.iterator();
+        // loops while there are next locations
         while(it.hasNext()) {
+            // where is the next block
             Location where = it.next();
             Object animal = field.getObjectAt(where);
+            // if there is a rabbit, and rabit is alive, set dead
             if(animal instanceof Rabbit) {
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) { 
                     rabbit.setDead();
                     foodLevel = RABBIT_FOOD_VALUE;
-                    return where;
+                    // return where, location to move used in hunt method
+                    //return where;
                 }
+            }
+            else {
+                return where;
             }
         }
         return null;

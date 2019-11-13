@@ -1,18 +1,32 @@
 #cupandball.py
 
 #The game objective is to pick the cup that hides the ball. If the
-#right cup is picked, you win.
+#right cup is picked, you win! Click the reset button to move and hide
+#the ball to play again.
+
+#I thought the "door 1, 2 or 3" design was kind of plain, so I decided to
+#make this like a classic cup and hidden ball game, featuring the college
+#classic, red Solo cups haha. I used the top down design, describing the
+#gameplay on paper, breaking down what objects are needed (cups, ball, and
+#buttons), what methods are needed for each (appearing, disappearing,
+#registering a click, etc), and then defining the final gameplay loop and events.
+#This was very challenging and took several attempts to write the loop.
+#I encountered numerous bugs, such as having multiple balls appear, being
+#able to click the ball multiple times after a win/loss to increase the wins,
+#and general drawing issues solved by trial and error.
 
 #by William Fuentes
 
 #pseudocode:
-#**DONE** create the play window with 3 upside down cups and a ball (circle).
+#**DONE** create the play window with 3 upside down cups and a ball.
     #**DONE**two buttons at the bottom, quit and reset game.
     #**DONE**reset game randomizes the ball.
-#**DONE**place a ball randomly in position 1, 2 or 3.
-#**DONE**upon click, cups disappear, revealing ball or no ball.
+    #**DONE**place a ball randomly in position 1, 2 or 3.
+#**DONE**upon click, cups disappear, revealing the ball.
     #**DONE**if ball is in the position, inciment a win.
     #**DONE**else inciment a loss.
+    #**DONE**Clicking reset, resets the gameboard for another choice.
+#**DONE**Clicking Quit exits the loop and closes the window.
 
 from graphics import *
 from random import randrange
@@ -23,8 +37,8 @@ class Cup:
     def __init__(self, pos):
         self.center = position(pos)
         x,y = self.center.getX(), self.center.getY()
-        self.xmax, self.xmin = x+6, x-6
-        self.ymax, self.ymin = y+6, y-6
+        self.xmax, self.xmin = x+10, x-10
+        self.ymax, self.ymin = y+10, y-10
         self.activate()
 
     def draw(self,win):
@@ -56,8 +70,8 @@ class Ball:
     def __init__(self):
         self.center = position(randrange(1,4))
         x,y = self.center.getX(), self.center.getY()
-        self.xmax, self.xmin = x+6, x-6
-        self.ymax, self.ymin = y+6, y-6
+        self.xmax, self.xmin = x+10, x-10
+        self.ymax, self.ymin = y+10, y-10
         self.activate()
 
     def draw(self,win):
@@ -165,7 +179,7 @@ def main():
         pt = win.getMouse()
 
         if (cup1.clicked(pt) or cup2.clicked(pt) or cup3.clicked(pt)) and ball.clicked(pt):
-            cup1.undraw(win)
+            cup1.undraw(win) #undraw cups, incriment wins, deactivate cups and ball.
             cup2.undraw(win)
             cup3.undraw(win)
             wins = wins + 1
@@ -175,7 +189,7 @@ def main():
             cup2.deactivate()
             cup3.deactivate()
         elif (cup1.clicked(pt) or cup2.clicked(pt) or cup3.clicked(pt)) and not ball.clicked(pt):
-            cup1.undraw(win)
+            cup1.undraw(win) #Same as win, but incriment loss
             cup2.undraw(win)
             cup3.undraw(win)
             loss = loss + 1
@@ -185,7 +199,7 @@ def main():
             cup2.deactivate()
             cup3.deactivate()
         elif resetButton.clicked(pt):
-            ball.undraw(win)
+            ball.undraw(win) #activate buttons, resets ball position.
             del ball
             ball = Ball()
             ball.draw(win)
@@ -196,7 +210,7 @@ def main():
             cup2.activate()
             cup3.activate()
         elif quitButton.clicked(pt):
-            break
+            break #breaks loop to close the app.
     win.close()
 
 if __name__ == '__main__':
