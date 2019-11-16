@@ -155,8 +155,10 @@ public class Fox
      * Exercise 12.20. Moved the "return where;" so that if there is not a
      * rabbit in a block, it will move the fox to the next location. I am not
      * 100% sure it is what the book is asking.
+     * 
+     * See second attempt below.
      */
-    private Location findFood()
+    private Location findFod()
     {
         // looks for adjacent locations and iterates through
         List<Location> adjacent = field.adjacentLocations(location);
@@ -181,6 +183,40 @@ public class Fox
             }
         }
         return null;
+    }
+    
+    /**
+     * Exercise 12.20. This attempt now searches all adjacent locations
+     * surrouding the fox using the field.adjacentLocations method. I moved
+     * the where variable outside of the while loop so it could be returned.
+     * 
+     * The loop checks each block for an instance of Rabbit, if true,
+     * it checks if the rabbit is alive, kills it, and saves the location of 
+     * the rabbit. If no animal is found or if the rabbit is dead, it will
+     * search the next block. If there are no animals found in adjacent
+     * blocks, it will return null.
+     */
+    private Location findFood()
+    {
+        List<Location> adjacent = field.adjacentLocations(location);
+        Iterator<Location> it = adjacent.iterator();
+        Location lastRabbit = null;
+        while(it.hasNext()) {
+            //Iterate through each adjacent block.
+            Location where = it.next();
+            Object animal = field.getObjectAt(where);
+            //Check if block contains a rabbit.
+            if(animal instanceof Rabbit) {
+                Rabbit rabbit = (Rabbit) animal;
+                //Check if rabbit is alive and kill it.
+                if(rabbit.isAlive()) {
+                    rabbit.setDead();
+                    foodLevel = RABBIT_FOOD_VALUE;
+                    lastRabbit = where;
+                }
+            }
+        }
+        return lastRabbit;
     }
     
     /**

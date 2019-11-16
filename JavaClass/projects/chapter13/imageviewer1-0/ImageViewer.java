@@ -129,6 +129,33 @@ public class ImageViewer
             showStatus("No image loaded.");
         }
     }
+    /**
+     * Exercise 13 Blur filter
+     */
+    private void makeBlur()
+    {
+        if(currentImage != null){
+            //Create the kernel.
+            float filter[] = { 0.1111f, 0.1111f, 0.1111f,
+                0.1111f, 0.1111f, 0.1111f,
+                0.1111f, 0.1111f, 0.1111f };
+            Kernel kernel = new Kernel(3, 3, filter);
+            ConvolveOp op = new ConvolveOp(kernel);
+            
+            //Create the convolve operation.
+            BufferedImage img = op.filter(currentImage,null);
+            currentImage = new OFImage(img);
+            imagePanel.clearImage();
+            imagePanel.setImage(currentImage);
+            frame.repaint();
+            showStatus("Applied: Blur");
+            
+        }
+        else{
+            showStatus("No image loaded.");
+        }
+    }
+    
     
     /**
      * Show the 'About...' dialog.
@@ -251,6 +278,11 @@ public class ImageViewer
 
         item = new JMenuItem("Threshold");
             item.addActionListener(e -> threshold());
+        menu.add(item);
+        
+	// Added for Blur exercise.
+        item = new JMenuItem("Blur");
+            item.addActionListener(e -> makeBlur());
         menu.add(item);
 
         
