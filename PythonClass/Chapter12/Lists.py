@@ -10,6 +10,7 @@
 #The new version generates a list of 50 digits, then converts it to a set.
 
 import random
+import time
 
 def main():
     print("The following lists are randomly generated. The first list ",
@@ -33,17 +34,22 @@ def main():
     #**Version 2** - Initialize and populate 1 list, convert it to a set, then print
     #both list/set.
 
+    start = int(time.time()*1000.0)
     original = []
-    for x in range(50):
-        x = random.randrange(1,101)
+    for x in range(5000000):
+        x = random.randrange(1,10000000)
         original.append(x)
 
     condensed = set(original)
-
-    print("The original list of 50 items is:")
-    print(original)
+    end = int(time.time()*1000.00)
+    timeToComplete = end - start
+    #print("The original list of 50 items is:")
+    #print(original)
     print()
     print("The condensed list containing {} items is :".format(len(condensed)))
-    print(condensed)
+    print("Time to complete: ", timeToComplete)
+    #print(condensed)
+
+    wait = input("Press Enter to exit.")
 
 main()

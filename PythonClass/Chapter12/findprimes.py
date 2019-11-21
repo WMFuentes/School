@@ -4,19 +4,16 @@
 #This program will find all primes between 1 and the number given by the user.
 
 def main():
-    print("This program will list all primes leading up to the provided number.")
-    x = int(input("Please enter a number > "))
+    print("This program will list all primes leading up to 100.")
 
     primes = []
-    y = 2
 
-    for i in range(x):
-        primes.append(i)
-
-    for i in primes:
-        if (i % y) == 0:
-            primes.remove(i)
-            y = y+ 1
+    for p in range(2, 101):
+        for i in range(2,p):
+            if p % i == 0:
+                break
+        else:
+            primes.append(p)
 
     print(primes)
 

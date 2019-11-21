@@ -72,6 +72,7 @@ public class AddressBook
      */
     public void changeDetails(String oldKey,
                               ContactDetails details)
+                              throws NoMatchingDetailsException
     {
         if(details == null) {
             throw new IllegalArgumentException("Null details passed to changeDetails.");
@@ -82,6 +83,9 @@ public class AddressBook
         if(keyInUse(oldKey)){
             removeDetails(oldKey);
             addDetails(details);
+        }
+        else{
+            throw new NoMatchingDetailsException(oldKey);
         }
     }
     
@@ -134,6 +138,7 @@ public class AddressBook
      * @throws IllegalArgumentException If the key is null.
      */
     public void removeDetails(String key)
+        throws NoMatchingDetailsException
     {
         if(key == null){
             throw new IllegalArgumentException("Null key passed to removeDetails.");
@@ -143,6 +148,9 @@ public class AddressBook
             book.remove(details.getName());
             book.remove(details.getPhone());
             numberOfEntries--;
+        }
+        else{
+            throw new NoMatchingDetailsException(key);
         }
     }
 

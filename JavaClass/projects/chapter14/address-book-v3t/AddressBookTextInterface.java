@@ -58,6 +58,9 @@ public class AddressBookTextInterface
             else if(command.equals("help")){
                 help();
             }
+            else if(command.equals("modify")){
+                modify();
+            }
             else{
                 // Do nothing.
             }
@@ -98,7 +101,12 @@ public class AddressBookTextInterface
     {
         System.out.println("Type the key of the entry.");
         String key = parser.readLine();
-        book.removeDetails(key);
+        try{
+            book.removeDetails(key);
+        }
+        catch(NoMatchingDetailsException ex){
+            System.out.println(ex.toString());
+        }
     }
     
     /**
@@ -129,5 +137,36 @@ public class AddressBookTextInterface
     private void list()
     {
         System.out.println(book.listDetails());
+    }
+    
+    /**
+     * Exercise 14.30 Changing details method. I think an if statement could be
+     * used to catch any bad input by using the book.keyInUse method, but
+     * the try and catch is more effective for potentially logging bad inputs.
+     */
+    private void modify()
+    {
+        System.out.println("Enter a name or number of entry to modify.");
+        String entry = parser.readLine();
+        
+        // Get new info to modify the entry.
+        System.out.println("Enter the new name.");
+        String name = parser.readLine();
+        System.out.println("Enter the new phone number.");
+        String phone = parser.readLine();
+        System.out.println("Enter the new address.");
+        String address = parser.readLine();
+        
+        // Since the changeDetails method has a ContactDetails object
+        // as a parameter, we must create one with the above info.
+        ContactDetails modifiedEntry = new ContactDetails(name, phone, address);
+       
+        try{
+            book.changeDetails(entry, modifiedEntry);
+        }
+        catch(NoMatchingDetailsException ex){
+            System.out.println(ex.toString());
+        }
+        
     }
 }
