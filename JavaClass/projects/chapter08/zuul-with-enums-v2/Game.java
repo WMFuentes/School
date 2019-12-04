@@ -14,11 +14,17 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2016.02.29
  */
+import java.util.Random;
+import java.util.ArrayList;
 
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
+    private Room lastRoom;
+    private ArrayList<Room> roomsList = new ArrayList<Room>();
+    private Random random = new Random();
+    private TransporterRoom transporter;
         
     /**
      * Create the game and initialise its internal map.
@@ -34,7 +40,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room outside, theater, pub, lab, office, transporter;
       
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -42,11 +48,13 @@ public class Game
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
+        transporter = new TransporterRoom("in the transporter room");
         
         // initialise room exits
         outside.setExit("east", theater);
         outside.setExit("south", lab);
         outside.setExit("west", pub);
+        outside.setExit("north", transporter);
 
         theater.setExit("west", outside);
 
@@ -58,6 +66,13 @@ public class Game
         office.setExit("west", lab);
 
         currentRoom = outside;  // start game outside
+        lastRoom = null;
+        
+        roomsList.add(outside);
+        roomsList.add(theater);
+        roomsList.add(pub);
+        roomsList.add(lab);
+        roomsList.add(office);
     }
 
     /**
@@ -110,9 +125,19 @@ public class Game
             case HELP:
                 printHelp();
                 break;
+            
+            // Exercise 8.15
+            case EAT:
+                System.out.println("You have eaten now and you are not hungry anymore.");
+                break;
 
             case GO:
                 goRoom(command);
+                break;
+                
+            // Exercise 8.23
+            case BACK:
+                goBack(command);
                 break;
 
             case QUIT:
@@ -158,9 +183,40 @@ public class Game
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
+        //Exercise 8.45
+        if (nextRoom.isTransporterRoom(nextRoom)){
+            currentRoom = nextRoom;
+            System.out.println(currentRoom.getShortDescription());
+            System.out.println("The floor drops from beneath you and you drop into darkness...");
+            lastRoom = null;
+            //int size = roomsList.size();
+            currentRoom = roomsList.get((random.nextInt(roomsList.size())));
+            System.out.println("You softly land "+currentRoom.getShortDescription());
+        }
         else {
+            lastRoom = currentRoom;
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
+        }
+    }
+    
+    /**
+     * Exercise 8.23 & 8.24
+     * If a player types "back", the character will return to the previous room.
+     * If a second word is entered, it is ignored and does not affect the movement.
+     */
+    private void goBack(Command command){
+        Room tempRoom;
+        if(lastRoom == null){
+            System.out.println("You cannot go back.");
+        }
+        else{
+            //This is intended to take "back" as literal jokingly, trapping the player between 2
+            //rooms if they keep typing back, going back and forth.
+            tempRoom = currentRoom;
+            currentRoom = lastRoom;
+            System.out.println(currentRoom.getLongDescription());
+            lastRoom = tempRoom;
         }
     }
 
@@ -176,7 +232,13 @@ public class Game
             return false;
         }
         else {
+            // Exercise 14.44
+            parser.createFile();
             return true;  // signal that we want to quit
         }
+    }
+    
+    public ArrayList<Room> getList(){
+        return roomsList;
     }
 }

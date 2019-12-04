@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.*;
 
 /**
  * This class is part of the "World of Zuul" application. 
@@ -20,6 +22,8 @@ public class Parser
 {
     private CommandWords commands;  // holds all valid command words
     private Scanner reader;         // source of command input
+    private ArrayList<String> log;   // log set up to log commands
+    private FileWriter writer;
 
     /**
      * Create a parser to read from the terminal window.
@@ -28,6 +32,7 @@ public class Parser
     {
         commands = new CommandWords();
         reader = new Scanner(System.in);
+        log = new ArrayList<String>();
     }
 
     /**
@@ -42,6 +47,9 @@ public class Parser
         System.out.print("> ");     // print prompt
 
         inputLine = reader.nextLine();
+        
+        // Ex 14.44 Add command to log.
+        log.add(inputLine);
 
         // Find up to two words on the line.
         Scanner tokenizer = new Scanner(inputLine);
@@ -62,5 +70,20 @@ public class Parser
     public void showCommands()
     {
         commands.showAll();
+    }
+    
+    //Exercise 14.44. This will write a log file of the input lines.
+    public void createFile(){
+        try{
+            FileWriter writer = new FileWriter("log.txt");
+            for(String str: log){
+                writer.write(str);
+                writer.write('\n');
+            }
+            writer.close();
+        }
+        catch(IOException ex){
+            System.err.println("There was a problem writing to log.txt");
+        }
     }
 }

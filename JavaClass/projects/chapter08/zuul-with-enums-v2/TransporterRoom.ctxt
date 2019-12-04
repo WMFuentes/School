@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=TransporterRoom
+comment0.text=\r\n\ Subclass\ of\ Room\ called\ TransporterRoom.\ \r\n\r\n\ @author\ William\ Fuentes\r\n\ @version\ Final\ Project\ 11/29/19\r\n
+comment1.params=description
+comment1.target=TransporterRoom(java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ TransporterRoom\r\n
+numComments=2

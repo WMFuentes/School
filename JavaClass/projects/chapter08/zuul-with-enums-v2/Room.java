@@ -88,5 +88,14 @@ public class Room
     {
         return exits.get(direction);
     }
+    
+    public Boolean isTransporterRoom(Room room){
+        if(room instanceof TransporterRoom){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 
